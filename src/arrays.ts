@@ -5,12 +5,12 @@
  * the number twice.
  */
 export function bookEndList(numbers: number[]): number[] {
-    if (numbers.length === 0){
+    if (numbers.length === 0) {
         return [];
-    } else if (numbers.length === 1){
+    } else if (numbers.length === 1) {
         const newNumbers = [...numbers, ...numbers];
         return newNumbers;
-    } else{
+    } else {
         const first: number = numbers[0];
         const last: number = numbers[numbers.length - 1];
         const newArray: number[] = [first, last];
@@ -23,7 +23,7 @@ export function bookEndList(numbers: number[]): number[] {
  * number has been tripled (multiplied by 3).
  */
 export function tripleNumbers(numbers: number[]): number[] {
-    const tripled = numbers.map((numbers: number): number => numbers *3);
+    const tripled = numbers.map((numbers: number): number => numbers * 3);
     return tripled;
 }
 
@@ -49,13 +49,13 @@ export function stringsToIntegers(numbers: string[]): number[] {
 export const removeDollars = (amounts: string[]): number[] => {
     const newInts = amounts.map((amounts: string): number => {
         let number: number;
-        if (amounts[0] === "$"){
+        if (amounts[0] === "$") {
             number = parseInt(amounts.slice(1), 10);
-        } else{
+        } else {
             number = parseInt(amounts, 10);
         }
         return isNaN(number) ? 0 : number;
-    })
+    });
     return newInts;
 };
 
@@ -65,20 +65,23 @@ export const removeDollars = (amounts: string[]): number[] => {
  * in question marks ("?").
  */
 export const shoutIfExclaiming = (messages: string[]): string[] => {
-  return messages
-    .filter((message: string) => message[message.length - 1] !== "?")
-    .map((message: string) =>
-      message[message.length - 1] === "!" ? message.toUpperCase() : message
-    );
+    return messages
+        .filter((message: string) => message[message.length - 1] !== "?")
+        .map((message: string) =>
+            message[message.length - 1] === "!" ?
+                message.toUpperCase()
+            :   message,
+        );
 };
-
 
 /**
  * Consumes an array of words and returns the number of words that are LESS THAN
  * 4 letters long.
  */
 export function countShortWords(words: string[]): number {
-    const shortWords = words.filter((words : string): boolean => words.length < 4);
+    const shortWords = words.filter(
+        (words: string): boolean => words.length < 4,
+    );
     return shortWords.length;
 }
 
@@ -88,7 +91,14 @@ export function countShortWords(words: string[]): number {
  * then return true.
  */
 export function allRGB(colors: string[]): boolean {
-    return false;
+    if (colors.length === 0) {
+        return true;
+    }
+    const colorful = colors.every(
+        (colors: string): boolean =>
+            colors === "red" || colors === "blue" || colors === "green",
+    );
+    return colorful;
 }
 
 /**
@@ -99,7 +109,12 @@ export function allRGB(colors: string[]): boolean {
  * And the array [] would become "0=0".
  */
 export function makeMath(addends: number[]): string {
-    return "";
+    const sum = addends.reduce(
+        (currentTotal: number, num: number) => currentTotal + num,
+        0,
+    );
+    const addedNumbers = addends.length === 0 ? "0" : addends.join("+");
+    return `${sum}=${addedNumbers}`;
 }
 
 /**
@@ -112,5 +127,25 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    return [];
+
+    const firstNegativeIndex = values.findIndex(
+        (value: number): boolean => value < 0,
+    );
+    
+    if(firstNegativeIndex === -1){
+        const sum = values.reduce(
+            (currentTotal: number, num: number) => currentTotal + num,
+            0,
+        );
+        return [...values, sum];
+    }
+    
+        const beforeSum = values
+        .slice(0, firstNegativeIndex)
+        .reduce(
+            (currentTotal: number, num: number) => currentTotal + num,
+            0);
+        
+    return [...values.slice(0, firstNegativeIndex + 1), beforeSum, ...values.slice(firstNegativeIndex + 1)];
+    
 }
