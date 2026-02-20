@@ -47,7 +47,16 @@ export function stringsToIntegers(numbers: string[]): number[] {
  */
 // Remember, you can write functions as lambdas too! They work exactly the same.
 export const removeDollars = (amounts: string[]): number[] => {
-    return [];
+    const newInts = amounts.map((amounts: string): number => {
+        let number: number;
+        if (amounts[0] === "$"){
+            number = parseInt(amounts.slice(1), 10);
+        } else{
+            number = parseInt(amounts, 10);
+        }
+        return isNaN(number) ? 0 : number;
+    })
+    return newInts;
 };
 
 /**
@@ -56,15 +65,21 @@ export const removeDollars = (amounts: string[]): number[] => {
  * in question marks ("?").
  */
 export const shoutIfExclaiming = (messages: string[]): string[] => {
-    return [];
+  return messages
+    .filter((message: string) => message[message.length - 1] !== "?")
+    .map((message: string) =>
+      message[message.length - 1] === "!" ? message.toUpperCase() : message
+    );
 };
+
 
 /**
  * Consumes an array of words and returns the number of words that are LESS THAN
  * 4 letters long.
  */
 export function countShortWords(words: string[]): number {
-    return 0;
+    const shortWords = words.filter((words : string): boolean => words.length < 4);
+    return shortWords.length;
 }
 
 /**
