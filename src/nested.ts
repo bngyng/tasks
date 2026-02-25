@@ -168,7 +168,9 @@ export function addNewQuestion(
     name: string,
     type: QuestionType,
 ): Question[] {
-    return [];
+    const deepCopy = questions.map((question: Question): Question => ({...question, options: [...question.options]}));
+    const newQuestion: Question = makeBlankQuestion(id, name, type);
+    return [...deepCopy, newQuestion];
 }
 
 /***
@@ -181,7 +183,8 @@ export function renameQuestionById(
     targetId: number,
     newName: string,
 ): Question[] {
-    return [];
+    const renamedQuestion: Question = questions.find((question: Question): boolean => question.id===targetId);
+    return questions.map((question: Question): Question => (question === renamedQuestion)? {...question, name : newName, options: [...question.options]} : question);
 }
 
 /***
