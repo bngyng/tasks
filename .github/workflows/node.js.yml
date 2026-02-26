@@ -23,7 +23,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-<<<<<<< HEAD:.github/workflows/node.js.yml
                   mkdir -p docs
                   cp README.md docs/index.md
                   echo "# Quick Links" > docs/quick-links.md
@@ -93,12 +92,6 @@ jobs:
               with:
                   src: docs
                   dst: dist/docs/
-=======
-    # Recommended for Pages so the URL shows on the run summary
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
->>>>>>> origin/main:.github/workflows/deploy.yml
 
     steps:
       - name: Checkout
