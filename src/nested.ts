@@ -183,7 +183,7 @@ export function renameQuestionById(
     targetId: number,
     newName: string,
 ): Question[] {
-    const renamedQuestion: Question = questions.find((question: Question): boolean => question.id===targetId);
+    const renamedQuestion = questions.find((question: Question): boolean => question.id===targetId);
     return questions.map((question: Question): Question => (question === renamedQuestion)? {...question, name : newName, options: [...question.options]} : question);
 }
 
@@ -199,7 +199,19 @@ export function changeQuestionTypeById(
     targetId: number,
     newQuestionType: QuestionType,
 ): Question[] {
-    return [];
+    const target = questions.find(
+        (question: Question): boolean => question.id === targetId,
+    );
+    return questions.map((question: Question): Question => {
+        if(question !== target) return question;
+
+        if(newQuestionType === "multiple_choice_question"){
+            return ({...question, type: newQuestionType, options: [...question.options]});
+        }
+        else {
+            return { ...question, type: newQuestionType, options: []};
+        }
+    })
 }
 
 /**
@@ -218,8 +230,22 @@ export function editOption(
     targetOptionIndex: number,
     newOption: string,
 ): Question[] {
-    return [];
+    const target = questions.find(
+        (question: Question): boolean => question.id === targetId);
+    
+    return questions.map((question: Question): Question => {
+        if (question !== target) return question;
+
+        if(targetOptionIndex === -1){
+            return ({...question, options: [...question.options, newOption]});
+        } else {
+            const newOptions = [...question.options];
+            newOptions[targetOptionIndex] = newOption;
+            return ({...question, options: [...newOptions]});
+        }
+    });
 }
+
 
 /***
  * Consumes an array of questions, and produces a new array based on the original array.
