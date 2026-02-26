@@ -22,7 +22,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    steps:
                   mkdir -p docs
                   cp README.md docs/index.md
                   echo "# Quick Links" > docs/quick-links.md
