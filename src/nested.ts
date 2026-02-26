@@ -1,6 +1,6 @@
 import { Answer } from "./interfaces/answer";
 import { Question, QuestionType } from "./interfaces/question";
-import { makeBlankQuestion } from "./objects";
+import { duplicateQuestion, makeBlankQuestion } from "./objects";
 
 /**
  * Consumes an array of questions and returns a new array with only the questions
@@ -147,6 +147,7 @@ export function publishAll(questions: Question[]): Question[] {
  * are the same type. They can be any type, as long as they are all the SAME type.
  */
 export function sameType(questions: Question[]): boolean {
+    if (questions.length === 0) return true;
     if (questions[0].type === "multiple_choice_question"){
         return questions.every((question: Question): boolean => question.type === "multiple_choice_question")
     } else {
@@ -258,5 +259,15 @@ export function duplicateQuestionInArray(
     targetId: number,
     newId: number,
 ): Question[] {
-    return [];
+    const targetIndex = questions.findIndex((q) => q.id === targetId);
+
+    if (targetIndex === -1) return [...questions];
+
+    const duplicate = duplicateQuestion(newId, questions[targetIndex]);
+
+    return [
+        ...questions.slice(0, targetIndex + 1),
+        duplicate,
+        ...questions.slice(targetIndex + 1),
+    ];
 }
