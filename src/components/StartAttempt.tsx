@@ -18,6 +18,8 @@ export function StartAttempt(): React.JSX.Element {
 
     return (
         <div>
+            <div>Start Attempt</div>
+            <br></br>
             <div>Attempts remaining: {attempts}</div>
             <Button
                 onClick={startQuiz}

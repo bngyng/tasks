@@ -8,8 +8,12 @@ export function RevealAnswer(): React.JSX.Element {
         setVisible(!visible);
     }
 
-    return <span>
-        <Button onClick = {flipVisibility}>Reveal Answer</Button>
-        {visible && <div>42</div>}
-    </span>;
+    return (
+        <span>
+            <div>Reveal Answer</div>
+            <br></br>
+            <Button onClick={flipVisibility}>Reveal Answer</Button>
+            {visible && <div>42</div>}
+        </span>
+    );
 }
